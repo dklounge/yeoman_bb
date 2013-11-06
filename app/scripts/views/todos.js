@@ -30,11 +30,28 @@ yeomanBb.Views = yeomanBb.Views || {};
             return this;
         },
 
-        createTodo: function () {},
+        createTodo: function (event) {
+            event.preventDefault();
 
-        addTodoItem: function () {},
+            var title = this.$('#new-todo').val().trim();
 
-        addAllTodoItems: function () {}
+            if (title) {
+                this.collection.create(new yeomanBb.Models.TodoModel({
+                    title: title
+                }));
+
+                $('#new-todo').val('');
+            }
+        },
+
+        addTodoItem: function (todo) {
+            var view = new yeomanBb.Views.TodosView({ model: todo });
+            this.$('ul').append(view.render().el);
+        },
+
+        addAllTodoItems: function () {
+            this.collection.each(this.addTodoItem, this);
+        }
 
     });
 

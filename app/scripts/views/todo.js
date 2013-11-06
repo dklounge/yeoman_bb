@@ -31,7 +31,23 @@ yeomanBb.Views = yeomanBb.Views || {};
             this.model.toggle();
         },
 
-        toggleEdit: function () {}
+        toggleEdit: function () {
+            var input = this.$('form input');
+            var title = input.val().trim();
+
+            if (!title) {
+                // Edit mode
+                this.model.destroy();
+                this.remove();
+                return;
+            } else {
+                // Done editing
+                this.model.set('title', title);
+                this.model.save();
+
+                this.render();
+            }
+        }
 
     });
 

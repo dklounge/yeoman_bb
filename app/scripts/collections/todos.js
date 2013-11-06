@@ -7,7 +7,11 @@ yeomanBb.Collections = yeomanBb.Collections || {};
 
     yeomanBb.Collections.TodosCollection = Backbone.Collection.extend({
 
-        model: yeomanBb.Models.TodosModel
+        localStorage: new Backbone.LocalStorage('backbone-generator-todos'),
+
+        initialize: function () {
+            this.model = yeomanBb.Models.TodoModel;
+        }
 
     });
 

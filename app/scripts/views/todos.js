@@ -7,7 +7,34 @@ yeomanBb.Views = yeomanBb.Views || {};
 
     yeomanBb.Views.TodosView = Backbone.View.extend({
 
-        template: JST['app/scripts/templates/todos.ejs']
+        el: '#todo-app',
+
+        template: JST['app/scripts/templates/todos.ejs'],
+
+        events: {
+            'submit': 'createTodo'
+        },
+
+        initialize: function () {
+            this.render();
+
+            this.listenTo(this.collection, 'add', this.addTodoItem);
+            this.listenTo(this.collection, 'reset',this.addAllTodoItems);
+
+            this.collection.fetch();
+        },
+
+        render: function () {
+            this.$el.html(this.template());
+
+            return this;
+        },
+
+        createTodo: function () {},
+
+        addTodoItem: function () {},
+
+        addAllTodoItems: function () {}
 
     });
 
